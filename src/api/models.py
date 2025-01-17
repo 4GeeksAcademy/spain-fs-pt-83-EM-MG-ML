@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -11,11 +12,10 @@ class User(db.Model):
     last_name = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(80), unique=False, nullable=False)
-    creation = db.Column(db.Date, unique=False, nullable=False)
 
 
     def __repr__(self):
-        return '<User %r>' % self.username
+        return '<User %r>' % self.first_name
 
     def serialize(self):
         return {
@@ -23,14 +23,12 @@ class User(db.Model):
             "first_name": self.first_name,
             "last_name": self.last_name,
             "email": self.email,
-            "creation": self.creation.strftime('%Y-%m-%DT')
             # do not serialize the password, its a security breach
         }
     
 
 class Habits(db.Model):
     __tablename__ = 'Habits'
-
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
@@ -52,19 +50,21 @@ class Habits(db.Model):
             # do not serialize the password, its a security breach
         }
 
-class User_habits_list(db.Model):
-    __tablename__ = 'User_habits_list'
+class Habits_list(db.Model):
+    __tablename__ = 'habits_list'
 
 
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, ForeingKey=User.id)   
-    habits_id = db.Column(db.Integer, ForeingKey=Habits.id)
+    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    habit_id = db.Column(db.Integer, db.ForeignKey('Habits.id'))
     duration = db.Column(db.DateTime, unique=False, nullable=False)
     completed = db.Column(db.Boolean, unique=False)
+    habits = db.relationship('Habits', backref='habits', primaryjoin='Habits.id == Habits_list.habit_id')
+    user = db.relationship('User', backref='user', primaryjoin='Habits_list.user_id == User.id')
 
 
     def __repr__(self):
-        return '<User_habits_list %r>' % self.name
+        return '<User_habits_list %r>' % self.id
 
     def serialize(self):
         return {
