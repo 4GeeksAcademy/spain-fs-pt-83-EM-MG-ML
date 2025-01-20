@@ -21,6 +21,12 @@ def handle_hello():
 
     return jsonify(response_body), 200
 
+# @api.route('/users', methods=['GET'])
+# def getallusers():
+#     all_users = User.query.all()
+#     all_users = User.query.all()
+#     list_users = [user.serialize() for user in all_users]
+#     return jsonify(list_users), 200
 
 
 
@@ -59,7 +65,8 @@ def update_user(user_id):
     request_body = request.get_json()
     email = request_body.get("email")
     password = request_body.get("password")
-
+    first_name = request_body.get("first_name")
+    last_name = request_body.get("last_name")
     user = User.query.get(user_id)
     if not user:
         return jsonify({"msg": "User not found"}), 404
@@ -68,6 +75,10 @@ def update_user(user_id):
         user.email = email
     if password:
         user.password = password
+    if first_name:
+        user.first_name = first_name
+    if last_name:
+        user.last_name = last_name
 
     db.session.commit()
     return jsonify({"msg": "User updated successfully"}), 200
@@ -84,3 +95,10 @@ def delete_user(user_id):
     return jsonify({"msg": "User deleted successfully"}), 200
 
 
+@api.route('/user/<int:user_id>', methods=['GET'])
+def get_user(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({"msg": "User not found"}), 404
+
+    return jsonify(user.serialize()), 200
