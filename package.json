@@ -80,6 +80,7 @@
 		"@mui/material": "^6.4.1",
 		"@mui/styled-engine-sc": "^6.4.0",
 		"@mui/x-date-pickers": "^7.24.0",
+		"@react-oauth/google": "^0.12.1",
 		"@types/react": "19.0.7",
 		"@types/react-dom": "19.0.3",
 		"dayjs": "^1.11.13",

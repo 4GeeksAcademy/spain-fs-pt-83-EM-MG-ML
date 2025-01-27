@@ -1,25 +1,26 @@
 import { createRoot } from "react-dom/client";
-//import react into the bundle
+import { StrictMode } from "react";
 import React from "react";
-import ReactDOM from "react-dom";
-import { Welcome } from "./Views/Welcome";
-
-//include your index.scss file into the bundle
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import "../styles/index.css";
-
-//import your own components
 import Layout from "./layout";
 
-
-const root = createRoot(document.querySelector("#app"));
-root.render(<Layout />);
+const CLIENT_ID = "455286273020-58p2bq3j3c8v1sd467pq855265dvlsdv.apps.googleusercontent.com";
 
 
-import { StyledEngineProvider } from '@mui/material/styles';
+createRoot(document.getElementById('app')).render(
+
+<StrictMode>
+    <GoogleOAuthProvider clientId={CLIENT_ID}>
+            <Layout />
+    </GoogleOAuthProvider>
+</StrictMode>
+
+);
 
 
 // ReactDOM.createRoot(document.querySelector("#root")).render(
-//   <React.StrictMode>
+//   <StrictMode>
 //     <StyledEngineProvider injectFirst>
 //     </StyledEngineProvider>
 //   </React.StrictMode>

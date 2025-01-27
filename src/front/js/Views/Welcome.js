@@ -16,6 +16,7 @@ export const Welcome = () => {
   const openSignUpModal = () => { setSignUpModal(true) };
   const closeSignUpModal = () => { setSignUpModal(false) };
 
+
   // <SignUp />
 
 
@@ -36,8 +37,13 @@ export const Welcome = () => {
           </div>
       </div>
       <div className="acceso-google">
-        <p>O si lo prefieres:</p>
-        <button className="google" onClick="actions.google">Google</button>
+      <input 
+    type='button' 
+    className="sign-up" 
+    value='Accede con Google' 
+    onClick={() => window.location.href = `${process.env.BACKEND_URL}/login/google`} 
+/>
+       
       </div>
 
 

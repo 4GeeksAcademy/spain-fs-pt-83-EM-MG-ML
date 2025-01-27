@@ -30,7 +30,7 @@ const handleSubmit = (e) => {
   return (
     <div className="signup-container">
     <h5>Vamos a necesitar que nos cuentes más de ti</h5>
-    <form id="login-form" onSubmit={handleSubmit}>
+    <form id="signup-form" onSubmit={handleSubmit}>
         
         <input 
           type="text" 
