@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 db = SQLAlchemy()
 
+
 class User(db.Model):
     __tablename__ = 'User'
 
@@ -74,9 +75,6 @@ class Habit_records(db.Model):
                        
         }
 
-
-
-
 class User_habit_list(db.Model):
     __tablename__ = 'User_habit_list'
 
@@ -99,5 +97,6 @@ class User_habit_list(db.Model):
              # do not serialize the password, its a security breach
         }
     
+
 
     
