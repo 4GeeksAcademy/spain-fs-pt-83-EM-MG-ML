@@ -41,7 +41,7 @@ export const Welcome = () => {
     type='button' 
     className="sign-up" 
     value='Accede con Google' 
-    onClick={() => window.location.href = `${process.env.BACKEND_URL}/login/google`} 
+    onClick={() => window.location.href = `${process.env.BACKEND_URL}auth`} 
 />
        
       </div>

@@ -14,7 +14,6 @@ from api.commands import setup_commands
 from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
 
 
-
 # from models import Person
 
 ENV = "development" if os.getenv("FLASK_DEBUG") == "1" else "production"
@@ -28,9 +27,6 @@ app.url_map.strict_slashes = False
 app.config["JWT_SECRET_KEY"] = "equipo-ninja"  # Change this!
 jwt = JWTManager(app)
 
-
-
-
 oauth = OAuth(app)
 google = oauth.register(
     name='google',
@@ -38,7 +34,6 @@ google = oauth.register(
     client_secret=os.getenv('GOOGLE_SECRET_ID'),
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid email profile'}
-
 )
 
 
@@ -89,34 +84,37 @@ def serve_any_other_file(path):
     return response
 
 
-#login with google
-@app.route('/login/google')
+# login with google
+@app.route('/auth')
 def google_login():
     try:
-        redirect_uri = url_for('authorize_google', _external=True)
+        redirect_uri = url_for('authorize', _external=True)
+        google = oauth.create_client('google')
         return google.authorize_redirect(redirect_uri)
     except Exception as e:
         app.logger.error(f"Error in Google Login: {str(e)}")
         return jsonify({"msg": "Error in Google Login"}), 500
-    
-    
-@app.route('/authorize/google')
-def authorize_google():
-        token = google.authorize_access_token()
-        user_info = oauth.google.parse_id_token(token)
-        reps = google.get(user_info)
-        user_info = reps.json()
-        first_name = user_info['username']
-        email = user_info['email']
 
-        user=User.query.filter_by(email=email).first()
-        if not user:
-            user=User(email=email, first_name=first_name)
-            db.session.add(user)
-            db.session.commit()
-        
-        session['email']=email
-        session['oauth_token']=token
+@app.route('/authorize', methods=['POST'])
+def authorize():
+    token = oauth.google.authorize_access_token()
+    user = token['userinfo']
+    # resp = google.get(user)
+    # user = resp.json()
+    # first_name = user['username']
+    # email = user['email']
 
-        return redirect(url_for('/home'))
+    # user = User.query.filter_by(email=email).first()
+    # if not user:
+    #     user = User(email=email, first_name=first_name)
+    #     db.session.add(user)
+    #     db.session.commit()
+
+    # session['user'] = user
+    # session['oauth_token'] = token
+
+    # return redirect('/home')
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=3000, debug=True)
 
