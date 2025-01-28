@@ -3,8 +3,8 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 """
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory, session, redirect
-from authlib.integrations.flask_client import OAuth
 from flask_migrate import Migrate
+from flask_cors import CORS
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
 from api.models import db, User
@@ -21,20 +21,13 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+CORS(app)
 
 
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = "equipo-ninja"  # Change this!
 jwt = JWTManager(app)
 
-oauth = OAuth(app)
-google = oauth.register(
-    name='google',
-    client_id=os.getenv('GOOGLE_CLIENT_ID'),
-    client_secret=os.getenv('GOOGLE_SECRET_ID'),
-    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
-    client_kwargs={'scope': 'openid email profile'}
-)
 
 
 # database condiguration
@@ -48,6 +41,9 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
+
+# Configuración de Flask-Session
+app.config['SESSION_TYPE'] = 'filesystem'
 
 # add the admin
 setup_admin(app)
@@ -84,36 +80,6 @@ def serve_any_other_file(path):
     return response
 
 
-# login with google
-@app.route('/auth')
-def google_login():
-    try:
-        redirect_uri = url_for('authorize', _external=True)
-        google = oauth.create_client('google')
-        return google.authorize_redirect(redirect_uri)
-    except Exception as e:
-        app.logger.error(f"Error in Google Login: {str(e)}")
-        return jsonify({"msg": "Error in Google Login"}), 500
-
-@app.route('/authorize', methods=['POST'])
-def authorize():
-    token = oauth.google.authorize_access_token()
-    user = token['userinfo']
-    # resp = google.get(user)
-    # user = resp.json()
-    # first_name = user['username']
-    # email = user['email']
-
-    # user = User.query.filter_by(email=email).first()
-    # if not user:
-    #     user = User(email=email, first_name=first_name)
-    #     db.session.add(user)
-    #     db.session.commit()
-
-    # session['user'] = user
-    # session['oauth_token'] = token
-
-    # return redirect('/home')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)

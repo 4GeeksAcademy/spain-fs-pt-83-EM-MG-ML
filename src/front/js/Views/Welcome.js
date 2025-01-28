@@ -3,9 +3,12 @@ import "../../styles/welcome.css";
 import { Login } from '../component/Login-form';
 import { SignUp } from '../component/Sign-up-form';
 import CloseIcon from '@mui/icons-material/Close';
+import { GoogleLogin } from '@react-oauth/google'
 
 
 export const Welcome = () => {
+
+  if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >
 
   const [loginModal, setLoginModal] = useState(false);
   const [signUpModal, setSignUpModal] = useState(false);
@@ -15,9 +18,6 @@ export const Welcome = () => {
 
   const openSignUpModal = () => { setSignUpModal(true) };
   const closeSignUpModal = () => { setSignUpModal(false) };
-
-
-  // <SignUp />
 
 
   return (
@@ -37,15 +37,34 @@ export const Welcome = () => {
           </div>
       </div>
       <div className="acceso-google">
-      <input 
-    type='button' 
-    className="sign-up" 
-    value='Accede con Google' 
-    onClick={() => window.location.href = `${process.env.BACKEND_URL}auth`} 
-/>
-       
+      <GoogleLogin
+        onSuccess={credentialResponse => {
+            console.log(credentialResponse);
+            fetch(`${process.env.BACKEND_URL}api/auth/google`, {  // Corregir la URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentialResponse)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Datos enviados al backend:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos al backend:', error);
+            });
+        }}
+        onError={() => {
+            console.log('Login Failed');
+        }}
+    />
       </div>
-
 
 {/* MODAL --- LOGIN */}
 

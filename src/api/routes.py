@@ -45,6 +45,21 @@ def login():
     token = create_access_token(identity=user.email)
     return jsonify({"msg": "logged", "token": token})
 
+
+@api.route('/auth/google', methods=['POST'])
+def google_auth():
+    data = request.json
+    print(data)
+
+    user = User.query.filter_by(email=data["email"]).first()
+    if user:
+        return jsonify({"msg": "User already registered"}), 400
+    new_user = User(first_name=data["given_name"], last_name=data["family_name"], email=data["email"], password="")  # La contraseña puede ser vacía o generada
+    db.session.add(new_user)
+    db.session.commit()
+    return jsonify({"msg": "User authenticated with Google"}), 200
+
+
 @api.route('/user/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
     request_body = request.get_json()
