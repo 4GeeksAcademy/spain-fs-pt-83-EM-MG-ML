@@ -20,10 +20,7 @@ flask-admin = "*"
 typing-extensions = "*"
 flask-jwt-extended = "*"
 wtforms = "==3.1.2"
-authlib = "*"
-flask-oauthlib = "*"
-requests = "*"
-flask-session = "*"
+flask-bcrypt = "*"
 
 [requires]
 python_version = "3.10"
