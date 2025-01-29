@@ -13,7 +13,7 @@ export const UserProfile = () => {
     const [response, setresponse] = useState(null)
 
     const validateToken = async () => {
-        const resp = await fetch(`${process.env.BACKEND_URL}api/private`, {
+        const resp = await fetch(`${process.env.BACKEND_URL}api/user/`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
