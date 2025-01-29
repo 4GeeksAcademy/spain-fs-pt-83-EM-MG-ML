@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
 import "../../styles/Log-in.css";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/Visibility';
 
 export const Login = ({loginAction}) => {
 
 const [username, setUsername] = useState("");
 const [password, setPassword] = useState("");
+const [showPassword, setShowPassword] = useState(false);
+
+const toggleShowPassword = () => {
+  setShowPassword(!showPassword);
+};
+
+
 const handleSubmit = (e) => {
   e.preventDefault();
   loginAction(username, password);
-
 }
 
   return (
@@ -23,6 +31,7 @@ const handleSubmit = (e) => {
           required
         />
 
+    <div className='password-container'>
         <input 
         type="password" 
         placeholder="Password" 
@@ -30,6 +39,11 @@ const handleSubmit = (e) => {
         onChange={(e) => setPassword(e.target.value)}
         requiered
         />
+
+        <button type="button" className='visibility' onClick={toggleShowPassword}>
+            {showPassword ? <VisibilityOff /> : <Visibility />}
+        </button>
+    </div>
 
         <button className="submit-button" type="submit">Login</button>
       </form>
