@@ -1,6 +1,5 @@
 import React from 'react'
 import { UserScore } from '../component/userscore'
-import AdbIcon from '@mui/icons-material/Adb';
 import "../../styles/Ranking.css"
 
 

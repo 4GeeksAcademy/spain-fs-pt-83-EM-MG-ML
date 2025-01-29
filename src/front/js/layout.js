@@ -8,6 +8,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Welcome } from "./Views/Welcome.js";
 import { Ranking } from "./Views/Ranking.js";
+import { UserProfile } from "./Views/User_Profile.js"
 
 //create your first component
 const Layout = () => {

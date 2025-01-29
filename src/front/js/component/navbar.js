@@ -67,7 +67,7 @@ export const Navbar = () => {
                     </div>
                     <div className="menu">
                         <Link to="/mis-habitos">Mis hábitos</Link>
-                        <Link to="/habit-tracker">Ranking</Link>
+                        <Link to="/ranking">Ranking</Link>
                         <Link to="/perfil">Perfil</Link>
                         <button className="logout-button"><Link to="/logout">Logout</Link></button>
                     </div>
