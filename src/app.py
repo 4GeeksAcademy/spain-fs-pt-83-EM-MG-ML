@@ -12,11 +12,8 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import jwt_required, get_jwt_identity, JWTManager
-<<<<<<< HEAD
-=======
 from flask_bcrypt import Bcrypt
 
->>>>>>> origin
 
 
 # from models import Person
@@ -26,21 +23,15 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-<<<<<<< HEAD
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-=======
 bcrypt = Bcrypt(app)
->>>>>>> origin
 
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = "equipo-ninja"  # Change this!
 jwt = JWTManager(app)
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
