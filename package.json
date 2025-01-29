@@ -83,6 +83,7 @@
 		"@react-oauth/google": "^0.12.1",
 		"@types/react": "19.0.7",
 		"@types/react-dom": "19.0.3",
+		"axios": "^1.7.9",
 		"dayjs": "^1.11.13",
 		"install": "^0.13.0",
 		"npm": "^11.0.0",

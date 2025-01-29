@@ -3,7 +3,7 @@ import "../../styles/welcome.css";
 import { Login } from '../component/Login-form';
 import { SignUp } from '../component/Sign-up-form';
 import CloseIcon from '@mui/icons-material/Close';
-import { GoogleLogin } from '@react-oauth/google'
+import { GoogleLogin } from '../component/GoogleLogin';
 
 
 export const Welcome = () => {
@@ -37,33 +37,7 @@ export const Welcome = () => {
           </div>
       </div>
       <div className="acceso-google">
-      <GoogleLogin
-        onSuccess={credentialResponse => {
-            console.log(credentialResponse);
-            fetch(`${process.env.BACKEND_URL}api/auth/google`, {  // Corregir la URL
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(credentialResponse)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Datos enviados al backend:', data);
-            })
-            .catch(error => {
-                console.error('Error al enviar los datos al backend:', error);
-            });
-        }}
-        onError={() => {
-            console.log('Login Failed');
-        }}
-    />
+        <GoogleLogin />
       </div>
 
 {/* MODAL --- LOGIN */}
