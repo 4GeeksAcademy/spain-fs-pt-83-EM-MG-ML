@@ -41,7 +41,7 @@ export const Navbar = () => {
                                     <BathroomOutlinedIcon /><Link to="/mis-habitos">Mis hábitos</Link>
                                 </li>
                                 <li>
-                                    <InsertChartOutlinedIcon /><Link to="/habit-tracker">Habit Tracker</Link>
+                                    <InsertChartOutlinedIcon /><Link to="/ranking">Ranking</Link>
                                 </li>
                                 <li>
                                     <AccountCircleOutlinedIcon /><Link to="/perfil">Perfil</Link>
@@ -67,7 +67,7 @@ export const Navbar = () => {
                     </div>
                     <div className="menu">
                         <Link to="/mis-habitos">Mis hábitos</Link>
-                        <Link to="/habit-tracker">Habit Tracker</Link>
+                        <Link to="/habit-tracker">Ranking</Link>
                         <Link to="/perfil">Perfil</Link>
                         <button className="logout-button"><Link to="/logout">Logout</Link></button>
                     </div>

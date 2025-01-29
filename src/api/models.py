@@ -52,7 +52,6 @@ class Habits(db.Model):
             "name": self.name,
             "description": self.description,
             "score": self.score
-            
         }
     
 class Habit_records(db.Model):

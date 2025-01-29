@@ -1,17 +1,19 @@
 .user_score_component {
-    display: flex;
-    justify-content: space-between;
-    width: 400px; 
-    align-items: center;
-    font-family: Arial, sans-serif;
-    color: #d57373; 
-    margin: 15px;
+  display: flex;
+      justify-content: space-between;
+      width: 100%;
+      align-items: center;
+      font-family: Arial, sans-serif;
+      color: #d57373;
+      padding: 15px;
   }
 
-.user_score_box {
-    display: flex;
-   
+.user_score_box{
+
+  display: flex;
+
 }
+
 
 .user_score_circle {
     width: 50px; 
