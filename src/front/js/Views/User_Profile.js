@@ -9,35 +9,36 @@ import Button from '@mui/material/Button';
 export const UserProfile = () => {
     const [user, setUser] = useState({});
     const navigate = useNavigate()
-console.log(user);
+    console.log(user);
 
     const getUser = async () => {
 
-       const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
+        const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
                 Authorization: `Bearer ${localStorage.getItem("token")}`
             },
-            
+
         })
 
         if (!response.ok) {
-            throw ("Error al obtener los datos del usuario");
-        }else {
-            const data=await response.json()
+            // throw ("Error al obtener los datos del usuario")
+            navigate("/");
+        } else {
+            const data = await response.json()
             console.log(data);
             setUser(data)
         }
     }
-        const handleLogout = () => {
+    const handleLogout = () => {
         localStorage.removeItem("token");
         navigate("/");
     };
 
-useEffect(()=>{
-    getUser()
-}, [])
+    useEffect(() => {
+        getUser()
+    }, [])
 
     return (
         <div className="profile-container">
@@ -52,7 +53,7 @@ useEffect(()=>{
                     </div>
                 </div>
 
-                <div className="profile-options"  style={{ display: "flex", flexDirection: "column", gap: "10px"}}>
+                <div className="profile-options" style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                     <Link to="/profile-details" className="profile-option">Datos de perfil</Link>
                     <Link to="/change-password" className="profile-option">Contraseña</Link>
                     <Link to="/support" className="profile-option">Soporte</Link>
@@ -61,8 +62,8 @@ useEffect(()=>{
             </div>
 
             <div className="logout">
-            <Button href="#text-buttons"onClick={handleLogout}>Cerrar sesión <LogoutIcon /></Button>
-               
+                <Button href="#text-buttons" onClick={handleLogout}>Cerrar sesión <LogoutIcon /></Button>
+
             </div>
         </div>
     );

@@ -1,16 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import "../../styles/Styles.css";
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
-import BathroomOutlinedIcon from '@mui/icons-material/BathroomOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 export const Navbar = () => {
+
+    const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
     const [isOpen, setIsOpen] = useState(false);
+
+    const handleNavigate = (e) => {
+        e.preventDefault();
+         navigate("/home")
+      }
 
     const handleResize = () => {
         setIsMobile(window.innerWidth <= 800);
@@ -38,9 +44,6 @@ export const Navbar = () => {
                         <div className="burger-content" >
                            <ul>
                                 <li>
-                                    <BathroomOutlinedIcon /><Link to="/mis-habitos">Mis hábitos</Link>
-                                </li>
-                                <li>
                                     <InsertChartOutlinedIcon /><Link to="/ranking">Ranking</Link>
                                 </li>
                                 <li>
@@ -63,10 +66,12 @@ export const Navbar = () => {
             ) : (
                 <div className="complete-menu">
                     <div className="logo">
-                        <i class="fa-brands fa-google"></i><span className="complete-menu-title">Proyecto Ninja</span>
+                        <i class="fa-brands fa-google"
+                           onClick={handleNavigate}
+                           style={{cursor:"pointer"}}
+                           ></i><span className="complete-menu-title">Proyecto Ninja</span>
                     </div>
                     <div className="menu">
-                        <Link to="/mis-habitos">Mis hábitos</Link>
                         <Link to="/ranking">Ranking</Link>
                         <Link to="/perfil">Perfil</Link>
                         <button className="logout-button"><Link to="/logout">Logout</Link></button>
