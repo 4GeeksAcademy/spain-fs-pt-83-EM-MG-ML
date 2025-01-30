@@ -1,12 +1,19 @@
 import React, { useState } from 'react'
 import "../../styles/Log-in.css";
 import { useNavigate } from "react-router-dom";
+import Visibility from '@mui/icons-material/Visibility';
 
 export const Login = ({ loginAction }) => {
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
+  
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   const loginUser = async () => {
     const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
       method: "POST",
@@ -41,17 +48,21 @@ export const Login = ({ loginAction }) => {
           required
         />
 
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
+        <div className='password-box'>
+        
+        <input 
+          type={showPassword ? "text" : "password"} 
+          placeholder="Password..." 
           onChange={(e) => setPassword(e.target.value)}
-          requiered
+          pattern="[A-Za-z][0-9]{3-16}"
+          required
         />
+        <Visibility className='visibility' onClick={toggleShowPassword} />
+        </div>
 
         <button className="submit-button" type="submit">Login</button>
-      </form>
-    </div>
+    </form>
+  </div>
 
   )
 }

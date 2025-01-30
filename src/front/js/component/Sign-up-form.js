@@ -10,10 +10,14 @@ const [lastName, setLastName] = useState("");
 const [email, setEmail] = useState("");
 const [password, setPassword] = useState("");
 const [confirmPassword, setConfirmPassword] = useState('');
-const [showPassword, setShowPassword] = useState(false);
+const [showPasswordA, setShowPasswordA] = useState(false);
+const [showPasswordB, setShowPasswordB] = useState(false);
 
-const toggleShowPassword = () => {
-  setShowPassword(!showPassword);
+const toggleShowPasswordA = () => {
+  setShowPasswordA(!showPasswordA);
+};
+const toggleShowPasswordB = () => {
+  setShowPasswordB(!showPasswordB);
 };
 
 
@@ -28,8 +32,8 @@ const handleSubmit = (e) => {
 }
 
   return (
-    <div className="signup-container">
-    <h5>Vamos a necesitar que nos cuentes más de ti</h5>
+    <div className="signup-box">
+    <h5 className='signup-title'>Vamos a necesitar que nos cuentes más de ti</h5>
     <form id="signup-form" onSubmit={handleSubmit}>
         
         <input 
@@ -61,40 +65,33 @@ const handleSubmit = (e) => {
           required
         />
         
-        <div className='password-container'>
+        <div className='password-box'>
         
         <input 
-          type={showPassword ? "text" : "password"} 
+          type={showPasswordA ? "text" : "password"} 
           placeholder="Password..." 
           // value={"lastName"}
           onChange={(e) => setPassword(e.target.value)}
+          pattern="[A-Za-z][0-9]{3-16}"
           required
         />
-            <button type="button" className='visibility' onClick={toggleShowPassword}>
-            {showPassword ? <VisibilityOff /> : <Visibility />}
-            </button>
+        <Visibility className='visibility' onClick={toggleShowPasswordA} />
         </div>
-
-        <div className='password-container'>
+        <div className='password-box'>
 
         <input 
-          type={showPassword ? "text" : "password"} 
+          type={showPasswordB ? "text" : "password"} 
           placeholder="Confirm Password..." 
           // value={"lastName"}
           onChange={(e) => setConfirmPassword(e.target.value).setUsername(e.target.value)}
           required
-        />
-            <button type="button" className='visibility' onClick={toggleShowPassword}>
-            {showPassword ? <VisibilityOff /> : <Visibility />}
-            </button>
+        >
+        </input>
+        <Visibility className="visibility" onClick={toggleShowPasswordB} />
         </div>
-
-        <div className='terms'>
-          <input type='checkbox' id='terms' className="terms-box" name='terms' value='terms' required />
-          <label for='terms'>Acepto los términos y condiciones</label>
-        </div>
-        <button className="submit-button" type="submit">Login</button>
+        <button className="signup-submit-button" type="submit">Signup</button>
       </form>
+      
     </div>
   )
 }

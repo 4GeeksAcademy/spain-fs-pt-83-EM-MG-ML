@@ -13,7 +13,7 @@ export const UserProfile = () => {
 
     const getUser = async () => {
 
-        const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
+        const response = await fetch(`${process.env.BACKEND_URL}api/user/`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",

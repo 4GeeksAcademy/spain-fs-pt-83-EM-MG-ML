@@ -4,6 +4,7 @@ import { Login } from '../component/Login-form';
 import { SignUp } from '../component/Sign-up-form';
 import CloseIcon from '@mui/icons-material/Close';
 import { GoogleLogin } from '../component/GoogleLogin';
+import { Hello_cuate } from "../../img/Hello-cuate.png"
 
 
 export const Welcome = () => {
@@ -22,7 +23,7 @@ export const Welcome = () => {
 
   return (
     
-    <div className="container">
+    <div className="welcome-cont">
       <div></div>
       <h1>Bienvenid@ a tu habbit tracker</h1>
       <div className="accesos">
@@ -67,6 +68,7 @@ export const Welcome = () => {
         <div className='wrapper'>
           <CloseIcon className="close" onClick={closeSignUpModal}/>
           <SignUp loginAction={""}/>
+          {/* <img src="Hello-cuate.png" style={{ width:'150px' }}/> */}
         </div>
       </div>
     </div>
