@@ -1,7 +1,6 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import React from "react";
 import { useState, useEffect } from "react";
-
 export const GoogleLogin = () => {
   
   const [user, setUser] = useState("");
@@ -13,7 +12,6 @@ export const GoogleLogin = () => {
     },
     onError: (error) => console.log("Login Failed:", error)
   });
-
 useEffect(() => {
     if (user) {
             fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`,
@@ -31,7 +29,6 @@ useEffect(() => {
             fetch('https://congenial-eureka-gxx54wx9xg4hvrxr-3001.app.github.dev/api/auth/google', {
                 method: 'POST',
                 headers: {
-
                     'Authorization': `Bearer ${profile.access_token}`,
                     'Content-Type': 'application/json'
                     
@@ -49,7 +46,6 @@ useEffect(() => {
         .catch((err) => console.log(err));
 }
   }, [user]);
-
   return (
           <div className="shadow-2xl">
             <button

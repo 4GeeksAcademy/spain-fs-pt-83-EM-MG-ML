@@ -47,6 +47,29 @@ def signup():
    print(token)
    return jsonify({"msg":"User created", "token": token}), 200
 
+#Google Signup
+
+# @api.route('/signup/google', methods=['POST'])
+# def signup():
+ 
+#    request_body = request.get_json()
+#    print(request_body)
+#    user = User.query.filter_by(email=request_body["email"]).first()
+#    if user:
+#       return jsonify ({"msg":"User already registered"}), 400
+   
+#    request_body = request.get_json()
+#    password= request_body.get("password")
+#    pw_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
+#    new_user = User(first_name=request_body["first_name"], last_name=request_body["last_name"], email=request_body["email"], password=pw_hash.decode("utf-8"))
+#    db.session.add(new_user)
+#    db.session.commit()
+
+#    token = create_access_token(identity=new_user.email)
+#    print(token)
+#    return jsonify({"msg":"User created", "token": token}), 200
+
+
 @api.route('/login', methods=['POST'])
 def login():
    request_body = request.get_json()
@@ -66,20 +89,27 @@ def login():
    
    return jsonify ({"msg":"Email and password are incorrect"}), 401
 
-@api.route('/auth/google', methods=['POST'])
-def google_auth():
-    data = request.json
-    print(data)
-    data = request.get_json()
+#Google Login
 
-    user = User.query.filter_by(email=data["email"]).first()
-    if user:
-        return jsonify({"msg": "User already registered"}), 400  # La contraseña puede ser vacía o generada
-    new_user = User(first_name=data['given_name'], last_name=data['family_name'], email=data['email']) 
-    db.session.add(new_user)
-    db.session.commit()
-    redirect(url_for('/home'))
-    return jsonify({"msg": "User authenticated with Google"}), 200
+# @api.route('/login/google', methods=['POST'])
+# def login():
+#    request_body = request.get_json()
+#    email = request_body.get("email")
+#    password= request_body.get("password")
+   
+#    if not email or not password:
+#       return jsonify({"msg": "All fields are required"}), 400
+#    user = User.query.filter_by(email=email).first()
+   
+#    if not user:
+#       return jsonify ({"msg":"Email and password are incorrect"}), 401
+   
+#    if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+#        token = create_access_token(identity=user.email)
+#        return jsonify({"msg":"logged", "token": token}), 200
+   
+#    return jsonify ({"msg":"Email and password are incorrect"}), 401
+
    
 
 #endpoint para que el usuario modifique sus datos

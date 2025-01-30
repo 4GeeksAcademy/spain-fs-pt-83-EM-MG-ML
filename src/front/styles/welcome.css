@@ -3,8 +3,6 @@
 .welcome-cont {
 
     display: flex;
-    position: relative;
-    transform: translateY(35%);
     padding: 30px;
     text-align: center;
     flex-direction: column;
@@ -12,7 +10,16 @@
     height: 100vh;
     bottom: 100px;
     z-index: -1000;
-    
+    justify-content: center;
+}
+
+.welcome-body {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 h1 {

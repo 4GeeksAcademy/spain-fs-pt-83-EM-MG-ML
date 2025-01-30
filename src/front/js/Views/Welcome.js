@@ -4,7 +4,7 @@ import { Login } from '../component/Login-form';
 import { SignUp } from '../component/Sign-up-form';
 import CloseIcon from '@mui/icons-material/Close';
 import { GoogleLogin } from '../component/GoogleLogin';
-import { Hello_cuate } from "../../img/Hello-cuate.png"
+// import { Hello_cuate } from "../../img/Hello-cuate.png"
 
 
 export const Welcome = () => {
@@ -24,7 +24,7 @@ export const Welcome = () => {
   return (
     
     <div className="welcome-cont">
-      <div></div>
+      <div className="welcome-body">
       <h1>Bienvenid@ a tu habbit tracker</h1>
       <div className="accesos">
           <div className="login">
@@ -38,7 +38,33 @@ export const Welcome = () => {
           </div>
       </div>
       <div className="acceso-google">
-        <GoogleLogin />
+      <GoogleLogin
+        onSuccess={credentialResponse => {
+            console.log(credentialResponse);
+            fetch(`${process.env.BACKEND_URL}api/auth/google`, {  // Corregir la URL
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(credentialResponse)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Datos enviados al backend:', data);
+            })
+            .catch(error => {
+                console.error('Error al enviar los datos al backend:', error);
+            });
+        }}
+        onError={() => {
+            console.log('Login Failed');
+        }}
+    />
       </div>
 
 {/* MODAL --- LOGIN */}
@@ -52,7 +78,7 @@ export const Welcome = () => {
         <div className='wrapper'>
           <CloseIcon className="close" onClick={closeLoginModal}/>
           <h5>Accede con tu cuenta</h5>
-          <Login loginAction={""}/>
+          <Login/>
         </div>
       </div>
 
@@ -67,10 +93,11 @@ export const Welcome = () => {
         
         <div className='wrapper'>
           <CloseIcon className="close" onClick={closeSignUpModal}/>
-          <SignUp loginAction={""}/>
+          <SignUp />
           {/* <img src="Hello-cuate.png" style={{ width:'150px' }}/> */}
         </div>
       </div>
     </div>
+  </div>
   );
 }

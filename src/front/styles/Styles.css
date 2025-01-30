@@ -1,3 +1,10 @@
+.main-container {
+
+    height: 100vh;
+
+}
+
+
 
 
 /*--------- Navbar -----------*/
@@ -6,6 +13,7 @@
 .navbar {
 
     display: flex;
+    position: fixed;
     background-color: rgb(255, 255, 255);
     border-bottom: solid 0.3px #FB7676;
     padding: 25px;

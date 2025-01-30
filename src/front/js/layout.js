@@ -9,6 +9,7 @@ import { Footer } from "./component/footer";
 import { Welcome } from "./Views/Welcome.js";
 import { Ranking } from "./Views/Ranking.js";
 import { UserProfile } from "./Views/User_Profile.js"
+import "../styles/Styles.css"
 
 
 //create your first component
@@ -20,7 +21,7 @@ const Layout = () => {
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
 
     return (
-        <div>
+        <div className="main-container">
             <BrowserRouter basename={basename}>
                     <Navbar />
                     <Routes>
