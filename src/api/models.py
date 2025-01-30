@@ -16,6 +16,9 @@ class User(db.Model):
     habit_records = db.relationship("Habit_records", backref="user_records")
     score = db.Column(db.Integer, unique=False, default=0)
 
+    # // Validando que el usuario viene de google o no
+    google_id = db.Column(db.String, unique=False, nullable=True) 
+
     def __repr__(self):
         return '<User %r>' % self.first_name
 

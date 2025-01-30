@@ -49,25 +49,27 @@ def signup():
 
 #Google Signup
 
-# @api.route('/signup/google', methods=['POST'])
-# def signup():
+@api.route('/signup/google', methods=['POST'])
+def signup_google():
  
-#    request_body = request.get_json()
-#    print(request_body)
-#    user = User.query.filter_by(email=request_body["email"]).first()
-#    if user:
-#       return jsonify ({"msg":"User already registered"}), 400
+    request_body = request.get_json()
+    print(request_body)
+    user = User.query.filter_by(email=["email"], google_id=["id"]).first()
+    if user:
+       return jsonify ({"msg":"User already registered"}), 400
    
-#    request_body = request.get_json()
-#    password= request_body.get("password")
-#    pw_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
-#    new_user = User(first_name=request_body["first_name"], last_name=request_body["last_name"], email=request_body["email"], password=pw_hash.decode("utf-8"))
-#    db.session.add(new_user)
-#    db.session.commit()
+    request_body = request.get_json()
+    # password= request_body.get("password")
+    # pw_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
+    new_user = User(first_name=request_body["name"], email=request_body["email"], id=request_body["id"])
+    db.session.add(new_user)
+    db.session.commit()
 
-#    token = create_access_token(identity=new_user.email)
-#    print(token)
-#    return jsonify({"msg":"User created", "token": token}), 200
+    token = create_access_token(identity=new_user.email)
+    print(token)
+    redirect (url_for("/home"))
+    return jsonify({"msg":"User created", "token": token}), 200
+
 
 
 @api.route('/login', methods=['POST'])
@@ -78,10 +80,10 @@ def login():
    
    if not email or not password:
       return jsonify({"msg": "All fields are required"}), 400
-   user = User.query.filter_by(email=email).first()
+   user = User.query.filter_by(email=email, id=id).first()
    
    if not user:
-      return jsonify ({"msg":"Email and password are incorrect"}), 401
+      return jsonify ({"msg":"Not registered user"}), 401
    
    if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
        token = create_access_token(identity=user.email)
@@ -91,24 +93,24 @@ def login():
 
 #Google Login
 
-# @api.route('/login/google', methods=['POST'])
-# def login():
-#    request_body = request.get_json()
-#    email = request_body.get("email")
-#    password= request_body.get("password")
+@api.route('/login/google', methods=['POST'])
+def login_google():
+    request_body = request.get_json()
+    email = request_body.get("email")
+    id = request_body.get("id")
    
-#    if not email or not password:
-#       return jsonify({"msg": "All fields are required"}), 400
-#    user = User.query.filter_by(email=email).first()
+    if not email or not id:
+       return jsonify({"msg": "User not found"}), 400
+    
+    user = User.query.filter_by(email=email, id=id).first()
    
-#    if not user:
-#       return jsonify ({"msg":"Email and password are incorrect"}), 401
+    if not user:
+       return jsonify ({"msg":"User not found"}), 401
    
-#    if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
-#        token = create_access_token(identity=user.email)
-#        return jsonify({"msg":"logged", "token": token}), 200
+    # if bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+    token = create_access_token(identity=user.email)
+    return jsonify({"msg":"logged", "token": token}), 200
    
-#    return jsonify ({"msg":"Email and password are incorrect"}), 401
 
    
 
