@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext } from "react";
 import { UserScore } from '../component/userscore'
 import "../../styles/Ranking.css"
 import { Winners_cuate } from "../../img/Winners_cuate.png"
+import { Context } from "../store/appContext";
 
 
 export const Ranking = () => {
+
+  const { store, actions} = useContext(Context);
+
   return (
     <>
     <div className='ranking-img-header'>
