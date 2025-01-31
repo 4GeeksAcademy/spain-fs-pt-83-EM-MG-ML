@@ -1,16 +1,15 @@
 
 
-.container {
+.welcome-wrap {
 
+    height: fit-content;
     display: flex;
-    position: inherit;
-    padding: 30px;
-    text-align: center;
-    justify-content: center;
     flex-direction: column;
+    align-self: center;
+    justify-self: center;
     align-items: center;
-    height: 100vh;
-    z-index: -1000;
+    margin-block: auto;
+    text-align: center;
     
 }
 

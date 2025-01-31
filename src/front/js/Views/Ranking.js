@@ -16,12 +16,13 @@ export const Ranking = () => {
 
       console.log(store.ranking)
   return (
-    <>
-    <div className='ranking-img-header'>
+    <div className="ranking-wrap">
+      <div className='ranking-img-header'>
         <img src="Winners_cuate.png" style={{ width:'150px' }}/>        
-    </div>
-    <div className='ranking-box'>
-      {
+      </div>
+      <div className="ranking-box-cont">
+      <div className='ranking-box'>
+        {
         store.ranking.map((user) => {
           return(
             <UserScore 
@@ -32,21 +33,14 @@ export const Ranking = () => {
           )
         
         })
-      }
-      
-            
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
-            <UserScore />
+        }
+        <UserScore/>
+        <UserScore/>
+        <UserScore/>
+        <UserScore/>
+        <UserScore/>
+        </div>
     </div>
-    </>
+  </div>
   )
 }

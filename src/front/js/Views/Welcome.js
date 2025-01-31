@@ -20,9 +20,8 @@ export const Welcome = () => {
 
 
   return (
-    
-    <div className="container">
-      <div></div>
+    <>
+    <div className='welcome-wrap'>
       <h1>Bienvenid@ a tu habbit tracker</h1>
       <div className="accesos">
           <div className="login">
@@ -70,6 +69,7 @@ export const Welcome = () => {
           <SignUp loginAction={""}/>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }

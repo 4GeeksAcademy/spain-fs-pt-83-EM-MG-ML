@@ -14,3 +14,11 @@
     border-top: 0.5px solid #fb7676;
 
 }
+
+@media (max-width: 1000px){
+    .footer{
+        bottom: 0;
+        height: 50px;
+        position: fixed;
+    }
+} 

@@ -1,3 +1,11 @@
+.ranking-wrap{
+
+    width: 100%;
+    height: 100%;
+
+}
+
+
 .ranking-img-header{
 
     justify-self: center;
@@ -12,7 +20,7 @@
 
     width: 85%;
     margin: auto;
-    height: 100%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,19 +39,21 @@
 
 }
 
-@media (min-width: 800px) {
+@media (min-width: 600px) {
 
     .ranking-box {
 
         width: 85%;
         margin: auto;
-        height: 100%;
-        display: flex;
+        height: fit-content;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         flex-direction: column;
         align-items: center;
         overflow-y: scroll;
         scroll-behavior: smooth;
         scrollbar-width: none;
+        gap: 10px;
     
     }
 
@@ -58,6 +68,7 @@
         margin: auto;
         height: 100%;
         gap: 10px;
+        height: fit-content;
 
     }
 
