@@ -104,11 +104,14 @@ def update_user():
 @jwt_required()
 def delete_user():
     token_email = get_jwt_identity()
-
+    request_data = request.get_json()
+    password = request_data.get("password") 
     user=User.query.filter_by(email = token_email).first()
     if user is None:
          return jsonify({"msg":"User not found"}),404
-   
+    
+    if not bcrypt.checkpw(password.encode("utf-8"), user.password.encode("utf-8")):
+        return jsonify({"msg": "Contraseña incorrecta"}), 401
     habit_records = Habit_records.query.filter_by(user_id=user.id).all()
     for record in habit_records:
         db.session.delete(record)
