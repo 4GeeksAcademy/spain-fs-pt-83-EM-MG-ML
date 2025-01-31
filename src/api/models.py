@@ -10,7 +10,7 @@ class User(db.Model):
     first_name = db.Column(db.String(120), nullable=False)
     last_name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(1000), unique=False, nullable=False)
     user_habit_list = db.relationship("User_habit_list", backref="user")
     habit_records = db.relationship("Habit_records", backref="user_records")
     score = db.Column(db.Integer, unique=False, default=0)
@@ -51,7 +51,6 @@ class Habits(db.Model):
             "name": self.name,
             "description": self.description,
             "score": self.score
-            
         }
     
 class Habit_records(db.Model):

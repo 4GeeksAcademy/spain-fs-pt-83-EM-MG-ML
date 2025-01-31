@@ -1,31 +1,51 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import "../../styles/Log-in.css";
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/Visibility';
+import { useNavigate } from "react-router-dom";
+import {Context} from "../store/appContext"
 
-export const Login = ({loginAction}) => {
+export const Login = ({ loginAction }) => {
+  
+const { store, actions} = useContext(Context)
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  const navigate = useNavigate()
+  const loginUser = async () => {
+    const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        "email": username,
+        "password": password
+      })
+    })
+    const data = await response.json()
+    console.log(data);
+    if (data.token) {
+      actions.login(data.token)
+     
+    }
 
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
-const [showPassword, setShowPassword] = useState(false);
-
-const toggleShowPassword = () => {
-  setShowPassword(!showPassword);
-};
-
-
-const handleSubmit = (e) => {
-  e.preventDefault();
-  loginAction(username, password);
-}
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+     loginUser()
+     navigate("/home")
+  }
 
   return (
 
     <div className="login-container">
       <form id="login-form" onSubmit={handleSubmit}>
-        <input 
-          type="text" 
-          placeholder="Username" 
+        <input
+          type="text"
+          placeholder="email"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           required
@@ -40,9 +60,7 @@ const handleSubmit = (e) => {
         requiered
         />
 
-        <button type="button" className='visibility' onClick={toggleShowPassword}>
-            {showPassword ? <VisibilityOff /> : <Visibility />}
-        </button>
+        <button type="button" className='visibility' onClick={toggleShowPassword}></button>
     </div>
 
         <button className="submit-button" type="submit">Login</button>
