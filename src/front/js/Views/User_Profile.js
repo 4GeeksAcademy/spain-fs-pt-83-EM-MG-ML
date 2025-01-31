@@ -40,6 +40,31 @@ export const UserProfile = () => {
         getUser()
     }, [])
 
+    const handleDeleteAccount = async () => {
+        const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.");
+        if (!confirmDelete) return;
+
+        try {
+            const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("token")}`
+                }
+            });
+
+            if (response.ok) {
+                alert("Cuenta eliminada con éxito.");
+                localStorage.removeItem("token"); // Eliminar el token
+                navigate("/"); // Redirigir a la página de inicio
+            } else {
+                alert("Error al eliminar la cuenta.");
+            }
+        } catch (error) {
+            console.error("Error al eliminar la cuenta:", error);
+            alert("Error al eliminar la cuenta.");
+        }
+    };
     return (
         <div className="profile-container">
             <h1 className="profile-title">Hola {user.first_name} {user.last_name}</h1>
@@ -57,7 +82,7 @@ export const UserProfile = () => {
                     <Link to="/profile-details" className="profile-option">Datos de perfil</Link>
                     <Link to="/change-password" className="profile-option">Contraseña</Link>
                     <Link to="/support" className="profile-option">Soporte</Link>
-                    <Link to="/delete-account" className="profile-option delete-option">Eliminar cuenta<HeartBrokenIcon /></Link>
+                    <Button href="#text-buttons" onClick={handleDeleteAccount}>Eliminar cuenta<HeartBrokenIcon /></Button>
                 </div>
             </div>
 

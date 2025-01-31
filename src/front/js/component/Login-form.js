@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import "../../styles/Log-in.css";
 import { useNavigate } from "react-router-dom";
 import Visibility from '@mui/icons-material/Visibility';
 
+import {Context} from "../store/appContext"
 export const Login = ({ loginAction }) => {
-
+const { store, actions} = useContext(Context)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -26,7 +27,8 @@ export const Login = ({ loginAction }) => {
     const data = await response.json()
     console.log(data);
     if (data.token) {
-      localStorage.setItem("token", data.token)
+      actions.login(data.token)
+     
     }
 
   }
