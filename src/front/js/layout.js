@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { BackendURL } from "./component/backendURL";
-
+import "../../../src/front/styles/Styles.css"
 import { Home } from "./Views/Home.js";
 import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
@@ -20,7 +20,7 @@ const Layout = () => {
     if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
 
     return (
-        <div>
+        <div className="main-cont">
             <BrowserRouter basename={basename}>
                     <Navbar />
                     <Routes>

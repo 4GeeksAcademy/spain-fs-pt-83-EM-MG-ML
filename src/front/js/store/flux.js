@@ -34,6 +34,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			getRanking: () => {
+				try {
+					fetch(`${process.env.BACKEND_URL}api/ranking`, {
+						method: "GET",
+						headers: {
+							"Content-Type": "application/json"
+						}
+					}).then((resp) => {
+						if (!resp.ok) {
+							throw new Error("Error al añadir la informacion");
+						}
+						return resp.json();
+					})
+					.then(respJson => {
+						const store = getStore();
+						const rankingList = respJson.ranking;
+						setStore({ ranking: rankingList });
+						console.log(rankingList)
+					})
+				} catch {
+					(err => console.error(err))
+				}
+
+
+			},
+
 			getHabits: async () => {
 				try {
 					const resp = await fetch(`${process.env.BACKEND_URL}/api/habits`, {

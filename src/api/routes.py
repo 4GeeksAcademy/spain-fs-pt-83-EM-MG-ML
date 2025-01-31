@@ -132,6 +132,7 @@ def get_user():
 
 #endpoint para añadir/eliminar hábito de usuario, el usuario lo sacaremos del token
 
+
 @api.route("/user/habits", methods=["POST", "GET", "DELETE"])
 @jwt_required()
 def manage_user_habits():

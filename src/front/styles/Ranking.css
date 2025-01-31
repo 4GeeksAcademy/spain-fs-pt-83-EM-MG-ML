@@ -42,6 +42,8 @@
         flex-direction: column;
         align-items: center;
         overflow-y: scroll;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
     
     }
 
@@ -56,7 +58,6 @@
         margin: auto;
         height: 100%;
         gap: 10px;
-        overflow-y: scroll;
 
     }
 
