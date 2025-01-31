@@ -23,18 +23,18 @@ export const Welcome = () => {
 
   return (
     
-    <div className="welcome-cont">
-      <div className="welcome-body">
-      <h1>Bienvenid@ a tu habbit tracker</h1>
+    <div className="container">
+      <div></div>
+      <h1>Bienvenid@ a tu rastreador de hábitos</h1>
       <div className="accesos">
           <div className="login">
             <p>¿Ya tienes cuenta?</p>
-            <button className="Login" onClick={openLoginModal}>Login</button>
+            <button className="Login" onClick={openLoginModal}>Inicia sesión</button>
           </div>
           <div className="divider"></div>
           <div className="signup">
             <p>¿Eres nuevo?</p>
-            <button className="sign-up" onClick={openSignUpModal}>Sign up</button>
+            <button className="sign-up" onClick={openSignUpModal}>Regístrate</button>
           </div>
       </div>
       <div className="acceso-google">

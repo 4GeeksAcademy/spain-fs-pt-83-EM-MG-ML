@@ -13,7 +13,7 @@ export const Navbar = () => {
     const navigate = useNavigate();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
     const [isOpen, setIsOpen] = useState(false);
-    const [user, setUser] = useState(null); // Estado del usuario
+    const user = store.user;
 
     const handleResize = () => {
         setIsMobile(window.innerWidth <= 800);
@@ -21,41 +21,10 @@ export const Navbar = () => {
 
     const handleLogout = () => {
         actions.logout();
-        setUser(null);
         navigate("/");
     };
 
-    const getUser = async () => {
-        if (!store.token) {
-            setUser(null);
-            return;
-        }
-
-        try {
-            const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
-                method: "GET",
-                headers: {
-                    "Content-type": "application/json",
-                    Authorization: `Bearer ${store.token}`
-                },
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                setUser(data);
-            } else {
-                setUser(null); //usuario no autenticado
-            }
-        } catch (error) {
-            console.error("Error al obtener los datos del usuario:", error);
-            setUser(null);
-        }
-    };
-
-    useEffect(() => {
-        getUser();
-    }, [store.token]); // Se ejecuta cuando cambia el token
-
+   
     useEffect(() => {
         window.addEventListener("resize", handleResize);
         return () => {
@@ -86,7 +55,7 @@ export const Navbar = () => {
                                         </li>
                                     </ul>
                                     <div className="logout-menu">
-                                        <button className="logout-button" onClick={handleLogout}>Logout</button>
+                                        <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
                                     </div>
                                 </div>
                             </div>
@@ -105,11 +74,11 @@ export const Navbar = () => {
                         ></i>
                         <span className="complete-menu-title">Proyecto Ninja</span>
                     </div>
-                    {user ? ( // Si hay usuario, muestra los enlaces
+                    {user ? ( // Si el usuario está loggeado, muestra los enlaces
                         <div className="menu">
                             <Link to="/ranking">Ranking</Link>
                             <Link to="/perfil">Perfil</Link>
-                            <button className="logout-button" onClick={handleLogout}>Logout</button>
+                            <button className="logout-button" onClick={handleLogout}>Cerrar sesión</button>
                         </div>
                     ) : null} {/* Si no hay usuario, no muestra los enlaces */}
                 </div>

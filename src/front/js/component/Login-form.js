@@ -4,37 +4,20 @@ import { useNavigate } from "react-router-dom";
 import Visibility from '@mui/icons-material/Visibility';
 
 import {Context} from "../store/appContext"
-export const Login = ({ loginAction }) => {
+export const Login = () => {
 const { store, actions} = useContext(Context)
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate()
-  
+    
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
   };
-
-  const loginUser = async () => {
-    const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        "email": username,
-        "password": password
-      })
-    })
-    const data = await response.json()
-    console.log(data);
-    if (data.token) {
-      actions.login(data.token)
-     
-    }
-
-  }
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-     loginUser()
+    actions.login(email, password)
      navigate("/home")
   }
 
@@ -45,8 +28,8 @@ const { store, actions} = useContext(Context)
         <input
           type="text"
           placeholder="email"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
 
