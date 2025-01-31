@@ -2,11 +2,12 @@ import React, { useState, useContext } from 'react'
 import "../../styles/Log-in.css";
 import { useNavigate } from "react-router-dom";
 import {Context} from "../store/appContext"
-export const Login = ({ loginAction }) => {
+export const Login = () => {
 const { store, actions} = useContext(Context)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate()
+
   const loginUser = async () => {
     const response = await fetch(`${process.env.BACKEND_URL}/api/login`, {
       method: "POST",

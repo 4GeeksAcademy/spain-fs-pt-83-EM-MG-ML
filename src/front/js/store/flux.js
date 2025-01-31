@@ -98,33 +98,33 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({ user_habits: [...userHabits, habit] });
 				}
 			},
-			login: async (email, password) => {
-				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
-						method: "POST",
-						headers: {
-							"Content-Type": "application/json"
-						},
-						body: JSON.stringify({ email, password })
-					});
+			// login: async (email, password) => {
+			// 	try {
+			// 		const resp = await fetch(`${process.env.BACKEND_URL}/api/login`, {
+			// 			method: "POST",
+			// 			headers: {
+			// 				"Content-Type": "application/json"
+			// 			},
+			// 			body: JSON.stringify({ email, password })
+			// 		});
 
-					if (!resp.ok) {
-						throw new Error("Error al iniciar sesión");
-					}
+			// 		if (!resp.ok) {
+			// 			throw new Error("Error al iniciar sesión");
+			// 		}
 
-					const data = await resp.json();
-					console.log("Inicio de sesión exitoso:", data);
-					setStore({ token: data.token });
-				} catch (error) {
-					console.log("Error al iniciar sesión", error);
-				}
-			},
+			// 		const data = await resp.json();
+			// 		console.log("Inicio de sesión exitoso:", data);
+			// 		setStore({ token: data.token });
+			// 	} catch (error) {
+			// 		console.log("Error al iniciar sesión", error);
+			// 	}
+			// },
 
 
-			logout: () => {
-				localStorage.removeItem("token");
-				console.log("Cierre de sesión exitoso");
-			},
+			// logout: () => {
+			// 	localStorage.removeItem("token");
+			// 	console.log("Cierre de sesión exitoso");
+			// },
 
 			signUp: async (email, password) => {
 				try {
@@ -150,23 +150,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			googleLogin: async () => {
-				try {
-					const resp = await fetch(`${process.env.BACKEND_URL}/api/google-login`, {
-						method: "GET"
-					});
+			// googleLogin: async () => {
+			// 	try {
+			// 		const resp = await fetch(`${process.env.BACKEND_URL}/api/google-login`, {
+			// 			method: "GET"
+			// 		});
 
-					if (!resp.ok) {
-						throw new Error("Error en el inicio de sesión con Google");
-					}
+			// 		if (!resp.ok) {
+			// 			throw new Error("Error en el inicio de sesión con Google");
+			// 		}
 
-					const tokenJson = await resp.json();
-					localStorage.setItem("token", tokenJson.access_token);
-					console.log("Inicio de sesión con Google exitoso");
-				} catch (error) {
-					console.log("Error", error);
-				}
-			},
+			// 		const tokenJson = await resp.json();
+			// 		localStorage.setItem("token", tokenJson.access_token);
+			// 		console.log("Inicio de sesión con Google exitoso");
+			// 	} catch (error) {
+			// 		console.log("Error", error);
+			// 	}
+			// },
 
 			getUserHabits: async () => {
 				try {

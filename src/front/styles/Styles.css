@@ -7,13 +7,7 @@
 
 }
 
-
-
-/*--------- Navbar -----------*/
-
-
 .navbar {
-
     display: flex;
     background-color: rgb(255, 255, 255);
     border-bottom: solid 0.3px #FB7676;
@@ -23,9 +17,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-content: center;
-
 }
-
 .s-title {
     font-size: 1.2rem;
     font-weight: bold;
@@ -33,8 +25,6 @@
     margin: auto;
     text-align: center;
 }
-
-
 .burger-content-container {
     position: fixed;
     top: 0;
@@ -47,25 +37,19 @@
     align-items: left;
     padding: 25px;
 }
-
 .burger-button {
     border: none;
     background-color: white;
 }
-
 .burguer-button-icon {
     color: #FB7676;
     font-size: 2rem;
 }
-
 .close-button {
-
     border: none;
     background-color: white;
     padding-top: 10px;
-
 }
-
 .burger-content {
     display: flex;
     flex-direction: column;
@@ -75,52 +59,37 @@
     height: 100%;
     justify-content: space-between;
 }
-
 .burger-content > ul  {
     display: flex;
     text-decoration: none;
     flex-direction: column;
     list-style: none;
 }
-
-
-
 .burger-content > ul > li {
-    
     padding-bottom: 15px;
 }
-
-
 .burger-content > ul > li > a {
-    
-    color: #2c2c2c;
+    color: #2C2C2C;
     font-weight: bold;
     text-decoration: none;
     padding-left: 10px;
 }
-
 .burger-content > ul > li > i {
-    
     color: #FB7676;
     padding-right: 15px;
 }
-
 .logout-menu {
     display: flex;
     width: 90%;
     align-items: center;
     padding-left: 2.5rem;
 }
-
 .logout-menu > a{
     text-decoration: none;
-    color: #2c2c2c;
+    color: #2C2C2C;
     padding-left: 10px;
 }
-
-
 .complete-menu {
-    
     display: flex;
     width: 100%;
     padding-left: 50px;
@@ -129,34 +98,25 @@
     flex-direction: row;
     justify-content: space-between;
 }
-
 .complete-menu-title{
-
     font-size: 1.2rem;
     color:#FB7676;
     font-weight: bold;
     padding-left: 30px;
-
 }
-
 .menu {
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
 }
-
 .menu > a {
     color: #FB7676;
     font-weight: bold;
     text-decoration: none;
     padding-left: 20px;
 }
-
 .logout-button{
-
     width: 100px;
     background-color: #FB7676;
     border-radius: 30px;
@@ -164,9 +124,7 @@
     border: none;
     margin-left: 20px;
 }
-
 .logout-button > a {
-
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
