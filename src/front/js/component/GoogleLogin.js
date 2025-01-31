@@ -1,90 +1,82 @@
 import { useGoogleLogin } from "@react-oauth/google";
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 export const GoogleLogin = () => {
-  
+
+  const navigate = useNavigate();
   const [googleUser, setGoogleUser] = useState("");
-  const [userName, setUserName] = useState([])
-  const [userEmail, setUserEmail] = useState([])
-  const [userGoogleId, setuserGoogleId] = useState([])
+  const [userData, setUserData] = useState([""]);
 
   
-  const login = useGoogleLogin({
+  const signUp = useGoogleLogin({
     onSuccess: (codeResponse) => {setGoogleUser(codeResponse)
       console.log(codeResponse)
     },
-    onError: (error) => console.log("Login Failed:", error)
+    onError: (error) => console.log("Login Failed:", error),
+    
+    
   });
 
-useEffect(() => {
+  useEffect(() => {
     if (googleUser) {
-            fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`,
-          {
-                method: "GET",
-                headers: {
+        fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${googleUser.access_token}`, {
+            method: "GET",
+            headers: {
                 Authorization: `Bearer ${googleUser.access_token}`,
                 Accept: "application/json",
             },
-          }
-        )
-        .then((resp) => {
-          console.log("Response object:", resp); // Verifica el objeto de respuesta
-          return resp.json();
         })
+        .then((resp) => resp.json())
         .then((data) => {
-          console.log("Received data:", data); // Verifica qué datos se están recibiendo
-          
-          if (!data || Object.keys(data).length === 0) {
-            throw new Error("No se recibieron datos del usuario.");
-          }
-  
-          setUserName(data.name);
-          setUserEmail(data.email);
-          setuserGoogleId(data.id);
-  
-          console.log("User Name:", data.name);
-          console.log("User Email:", data.email);
-          console.log("User Google ID:", data.id);
+            console.log("Received data:", data);
+            const googleUserData = {
+                "google_id": data.id,
+                "name": data.name,
+                "email": data.email
+            };
+            setUserData(googleUserData);  
         })
-        .catch(error => {
-              console.error("Error al autenticar y almacenar el usuario:", error);
-            })
-  }}, [googleUser]);
-  
-  useEffect(() => {
-    if (userName && userEmail && userGoogleId) {
-      const userData = {
-        email: userEmail,
-        google_id: userGoogleId,
-      };
-  
-      fetch("https://congenial-eureka-gxx54wx9xg4hvrxr-3001.app.github.dev/api/signup/google/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      })
-        .then((resp) => {
-          if (!resp.ok) throw new Error(`HTTP error! Status: ${resp.status}`);
-          return resp.json();
+        .catch(error => console.error("Error al autenticar y almacenar el usuario:", error));
+    }
+}, [googleUser]); 
+
+useEffect(() => {
+    if (userData) {
+        fetch(`${process.env.BACKEND_URL}api/signup/google`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(userData),
         })
-        .then((data) => console.log("User successfully registered:", data))
+        .then((resp) => resp.json())
+        .then((data) => {
+            console.log("Response from backend:", data);
+            if (data.token) {
+                console.log("Token received:", data.token);
+                localStorage.setItem("token", data.token);
+                navigate("/home");
+            } else {
+                console.error("No token received:", data);
+            }
+        })
         .catch((error) => console.error("Error al registrar usuario:", error));
+    }
+}, [userData]);
 
-  }}, [userName, userEmail, userGoogleId]); // Se ejecuta cuando estos valores cambian
+
+{
+  console.log(userData)
+}
   
-
-   
-
-
 
   return (
           <div className="shadow-2xl">
             <button
               type="button"
               className="bg-mainColor flex justify-center items-center p-3 rounded-lg cursor-pointer outline-none"
-              onClick={() => login()}
+              onClick={() => signUp()}
             >
               Sign in with Google
             </button>

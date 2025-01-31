@@ -45,6 +45,7 @@ def signup():
 
    token = create_access_token(identity=new_user.email)
    print(token)
+   redirect(url_for("/home"))
    return jsonify({"msg":"User created", "token": token}), 200
 
 #Google Signup
@@ -54,20 +55,19 @@ def signup_google():
  
     request_body = request.get_json()
     print(request_body)
-    user = User.query.filter_by(email=["email"], google_id=["id"]).first()
+    user = User.query.filter_by(first_name=request_body["name"], email=request_body["email"], google_id=request_body["google_id"]).first()
     if user:
        return jsonify ({"msg":"User already registered"}), 400
    
     request_body = request.get_json()
     # password= request_body.get("password")
     # pw_hash = bcrypt.hashpw(password.encode("utf-8"), salt)
-    new_user = User(first_name=request_body["name"], email=request_body["email"], id=request_body["id"])
+    new_user = User(first_name=request_body["name"], email=request_body["email"], google_id=request_body["google_id"])
     db.session.add(new_user)
     db.session.commit()
 
     token = create_access_token(identity=new_user.email)
     print(token)
-    redirect (url_for("/home"))
     return jsonify({"msg":"User created", "token": token}), 200
 
 

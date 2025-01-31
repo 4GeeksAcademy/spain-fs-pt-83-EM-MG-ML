@@ -61,6 +61,15 @@ app.register_blueprint(api, url_prefix='/api')
 
 #Headers handling
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add('Cross-Origin-Opener-Policy', 'same-origin')
+    response.headers.add('Cross-Origin-Embedder-Policy', 'require-corp')
+    return response
+
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):

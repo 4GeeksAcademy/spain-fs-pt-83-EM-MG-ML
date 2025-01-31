@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			user: null,
 			ranking: [],
 			habits: [],
-			user_habits: []
+			user_habits: [],
 
 			// user: null,
 			// ranking: [],
