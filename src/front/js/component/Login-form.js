@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react'
 import "../../styles/Log-in.css";
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/Visibility';
 import { useNavigate } from "react-router-dom";
 import {Context} from "../store/appContext"
 
@@ -11,9 +10,9 @@ const { store, actions} = useContext(Context)
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  
+
   const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+    setShowPassword(showPassword);
   };
   const navigate = useNavigate()
   const loginUser = async () => {
@@ -60,7 +59,7 @@ const { store, actions} = useContext(Context)
         requiered
         />
 
-        <button type="button" className='visibility' onClick={toggleShowPassword}></button>
+        <button type="button" className='visibility' onClick={toggleShowPassword}> <Visibility/></button>
     </div>
 
         <button className="submit-button" type="submit">Login</button>
