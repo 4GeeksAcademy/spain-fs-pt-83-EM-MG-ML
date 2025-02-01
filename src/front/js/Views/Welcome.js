@@ -26,12 +26,12 @@ export const Welcome = () => {
       <div className="accesos">
           <div className="login">
             <p>¿Ya tienes cuenta?</p>
-            <button className="Login" onClick={openLoginModal}>Login</button>
+            <button className="Login" onClick={openLoginModal}>Inicia sesión</button>
           </div>
           <div className="divider"></div>
           <div className="signup">
             <p>¿Eres nuevo?</p>
-            <button className="sign-up" onClick={openSignUpModal}>Sign up</button>
+            <button className="sign-up" onClick={openSignUpModal}>Regístrate</button>
           </div>
       </div>
       <div className="acceso-google">

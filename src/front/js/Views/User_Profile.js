@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { Link } from "react-router-dom";
@@ -13,44 +14,26 @@ import Alert from '@mui/material/Alert';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const UserProfile = () => {
-    const [user, setUser] = useState({});
+    const { store, actions } = useContext(Context);
+    const user = store.user;
     const navigate = useNavigate()
     console.log(user);
-
-    const getUser = async () => {
-
-        const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json",
-                Authorization: `Bearer ${localStorage.getItem("token")}`
-            },
-
-        })
-
-        if (!response.ok) {
-            // throw ("Error al obtener los datos del usuario")
-            navigate("/");
-        } else {
-            const data = await response.json()
-            console.log(data);
-            setUser(data)
-        }
-    }
+    const [modalDelete, setmodalDelete] = useState(false)
+    if (!user) return null;
     const handleLogout = () => {
-        localStorage.removeItem("token");
+        actions.logout()
         navigate("/");
     };
 
-    useEffect(() => {
-        getUser()
-    }, [])
 
-    const handleDeleteAccount = async () => {
-        const confirmDelete = window.confirm("¿Estás seguro de que quieres eliminar tu cuenta? Esta acción es irreversible.");
-        if (!confirmDelete) return;
+
+    const handleDeleteAccount = async (e) => {
+        e.preventDefault();
+        console.log(e);
+        const password = e.target.elements[0].value;
 
         try {
             const response = await fetch(`${process.env.BACKEND_URL}/api/user/`, {
@@ -58,12 +41,20 @@ export const UserProfile = () => {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${localStorage.getItem("token")}`
-                }
+
+                },
+                body: JSON.stringify({
+                    password
+                })
+
+
+
             });
 
             if (response.ok) {
                 alert("Cuenta eliminada con éxito.");
                 localStorage.removeItem("token"); // Eliminar el token
+                setmodalDelete(false)
                 navigate("/"); // Redirigir a la página de inicio
             } else {
                 alert("Error al eliminar la cuenta.");
@@ -74,11 +65,33 @@ export const UserProfile = () => {
         }
     };
 
-   
-    
+
+
     return (
         <div className="profile-container" style={{ display: "flex", flexDirection: "column" }}>
             <h1 className="profile-title">Hola {user.first_name} {user.last_name}</h1>
+
+            <div className="modal-login"
+                isOpen={modalDelete}
+                style={modalDelete ? { display: "flex" } : { display: "none" }}
+
+            >
+
+                <div className='wrapper'>
+                    <CloseIcon className="close" onClick={() => setmodalDelete(false)} />
+                    <h5>Accede con tu cuenta</h5>
+                    <form id="delete-form" onSubmit={handleDeleteAccount}>
+
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            requiered
+                        />
+
+                        <button className="submit-button" type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
 
             <div className="profile-card">
                 <div className="profile-header">
@@ -105,7 +118,7 @@ export const UserProfile = () => {
                     Soporte <SupportAgentIcon sx={{ marginLeft: 1 }} />
                 </Button>
 
-                <Button onClick={handleDeleteAccount}>
+                <Button onClick={() => setmodalDelete(true)}>
                     Eliminar cuenta <HeartBrokenIcon sx={{ marginLeft: 1 }} />
                 </Button>
 
