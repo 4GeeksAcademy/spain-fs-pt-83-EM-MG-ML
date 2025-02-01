@@ -98,6 +98,5 @@ export const Welcome = () => {
         </div>
       </div>
     </div>
-  </div>
   );
 }

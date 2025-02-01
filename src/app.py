@@ -23,7 +23,7 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-CORS(app, resources={r"/*": {"origins": "*"}})
+CORS(app)
 
 bcrypt = Bcrypt(app)
 
@@ -59,17 +59,6 @@ app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
 
-#Headers handling
-
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    response.headers.add('Cross-Origin-Opener-Policy', 'same-origin')
-    response.headers.add('Cross-Origin-Embedder-Policy', 'require-corp')
-    return response
-
 
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -96,5 +85,6 @@ def serve_any_other_file(path):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    PORT = int(os.environ.get('PORT', 3001))
+    app.run(host='0.0.0.0.', port=3000, debug=True)
 
