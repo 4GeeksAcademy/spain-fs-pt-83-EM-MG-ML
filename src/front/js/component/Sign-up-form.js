@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import "../../styles/Log-in.css";
 import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/Visibility';
 
 export const SignUp = () => {
 
@@ -33,7 +32,6 @@ const handleSubmit = (e) => {
 
   return (
     <div className="signup-box">
-    <h5 className='signup-title'>Vamos a necesitar que nos cuentes más de ti</h5>
     <form id="signup-form" onSubmit={handleSubmit}>
         
         <input 
