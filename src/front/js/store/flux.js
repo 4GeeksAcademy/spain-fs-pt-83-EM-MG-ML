@@ -2,7 +2,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			user: null,
-			user_picture_profile:[],
+			userProfilePicture:[],
 			ranking: [],
 			habits: [],
 			user_habits: []
@@ -298,6 +298,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+				handleImageUpload: (file) => {
+					const imageUrl = URL.createObjectURL(file); 
+					
+					// Almacenar la imagen en el store
+					setStore({ userProfilePicture: "imageUrl" });
+	
+					// Guardar en localStorage
+					localStorage.setItem("image", imageUrl);
+				},
+	
+				handleDeletePicture: () => {
+					// Eliminar la imagen del store y localStorage
+					setStore({ userProfilePicture: "" });
+					localStorage.removeItem("image");
+				},
 		}
 	};
 

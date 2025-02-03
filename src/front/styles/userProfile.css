@@ -5,6 +5,16 @@
     overflow: hidden;
 }
 
+.profile-picture-cont{
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture-con > img{
+    width: 150px;
+    height: 150px;
+}
+
 
 /* ---------- Modals -----------*/
 

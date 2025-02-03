@@ -22,7 +22,8 @@ export const SignUp = () => {
   const [showPasswordA, setShowPasswordA] = useState(false);
   const [showPasswordB, setShowPasswordB] = useState(false);
   const { store, actions } = useContext(Context);
-  const [userPicture, setUserPicture] = useState(localStorage.getItem("image") || "");
+  const [userProfilePicture, setUserProfilePicture] = useState(store.userProfilePicture);
+
   const navigate = useNavigate();
 
   
@@ -36,19 +37,21 @@ export const SignUp = () => {
 
   
 
-  const handleImageUpload = (e) => {
+  const handleImageUpload = (e) => { 
     const file = e.target.files[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setUserPicture(imageUrl);
-      localStorage.setItem("image", imageUrl);
-      store.user_picture_profile(userPicture)
-
+      setUserProfilePicture(file);
+      actions.handleImageUpload(userProfilePicture); // Llamamos a la acción de Flux
+    }
   };
-  }
+  
   const handleDeletePicture = () => {
-    localStorage.removeItem("image");
-    setUserPicture("");
+    actions.handleDeletePicture(); // Llamamos a la acción de Flux
+    setUserProfilePicture(""); // Resetear el estado local
+  
+    // Resetear el input de carga de archivos
+    const fileInput = document.querySelector("input[name='file-loader']");
+    if (fileInput) fileInput.value = "";
   };
 
 
@@ -141,7 +144,7 @@ export const SignUp = () => {
 
         {/* Subida de imagen */}
         <div className='profile-picture'>
-          {userPicture && <img src={userPicture} 
+          {userProfilePicture && <img src={store.userProfilePicture} 
           alt="Perfil" 
           style={{ width: "90px", height: "90px", cursor:"pointer" }}
           onClick={handleDeletePicture}
