@@ -325,22 +325,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-
-			handleImageUpload: (file) => {
-				const imageUrl = URL.createObjectURL(file);
-
-				// Almacenar la imagen en el store
-				setStore({ userProfilePicture: imageUrl });
-
-				// Guardar en localStorage
-				localStorage.setItem("image", imageUrl);
-			},
-
-			handleDeletePicture: () => {
-				// Eliminar la imagen del store y localStorage
-				setStore({ userProfilePicture: "" });
-				localStorage.removeItem("image");
-			},
 			filterHabits: () => {
 				const store = getStore();
 				const newHabits = store.habits.filter(habit => !store.user_habits.some(user_habit => user_habit.habit.id === habit.id));
