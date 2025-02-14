@@ -54,7 +54,7 @@ export const Navbar = () => {
                                     <button className="close-button" onClick={() => setIsOpen(false)}>
                                         <CloseIcon />
                                     </button>
-                                    <DarkMode /> 
+                                    <DarkMode style={{paddingInline:"5px", paddingBlock:"10px"}}/> 
                                 </div>
                                 <div className="burger-content">
                                     <ul>
@@ -66,9 +66,6 @@ export const Navbar = () => {
                                         </li>
                                         <li>
                                             <AccountCircleOutlinedIcon /><Link to="/perfil" onClick={handleClose}>Perfil</Link>
-                                        </li>
-                                        <li>
-                                            
                                         </li>
                                     </ul>
                                     <div className="logout-menu">

@@ -51,7 +51,7 @@ export const HabitCard = ({ user_habit }) => {
                     <i className="fa-solid fa-x"></i>
                 </button>
                 <div className="habit_title">{user_habit.habit.name}</div>
-                <HelpOutlineIcon onClick={() => setActive(true)} style={{ marginRight: "40px", cursor: "pointer" }} />
+                <HelpOutlineIcon onClick={() => setActive(true)} style={{ marginRight: "20px", cursor: "pointer" }} />
             </div>
             <div className="habit_box">
                 <div className="habit_status">{isCompleted ? "Completado" : "Completar"}</div>

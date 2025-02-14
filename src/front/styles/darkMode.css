@@ -3,3 +3,25 @@
     cursor: pointer;
 
 }
+
+.darkmode{
+
+    width: 90px;
+    padding-block: 10px;
+    padding-inline: 20px;
+    background-color: transparent;
+    border: 1px solid var(--body_color);
+    border-radius: 30px;
+    color:var(--body_color);
+
+}
+
+.darkmode:hover{
+
+    
+    background-color: var(--body_sumbit_button);
+    border: 1px solid var(--body_color);
+    border-radius: 30px;
+    color:var(--body_sumbit_button_text);
+
+}

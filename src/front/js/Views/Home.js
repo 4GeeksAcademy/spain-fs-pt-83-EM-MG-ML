@@ -93,7 +93,7 @@ export const Home = () => {
         {/* Sección user_habits */}
         <section className="carousel-section">
           <h2>Mis Hábitos</h2>
-          <div className="habit">
+          <div className="carousel small-habits-carousel">
             {store.user_habits && store.user_habits.length > 0 ? (
               store.user_habits.map((user_habit, index) => (
                 <HabitCard key={index} user_habit={user_habit} />

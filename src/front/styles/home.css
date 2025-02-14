@@ -58,7 +58,7 @@ header {
 
 
 .carousel::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: var(--body_badge);
   border-radius: 6px;
   opacity: 0;
   transition: opacity 0.3s ease;
