@@ -28,7 +28,16 @@ export const DarkMode = () => {
     }
     return (
         <div className='dark_mode'>
-            
+            <button className="darkmode">
+            { active ? 
+             <DarkModeIcon 
+             className="moon"
+             onClick={() => {
+                 setActive(false);
+                 toggleTheme();
+               }}
+             />
+            :
             <LightModeIcon 
             className="sun"
             onClick={() => {
@@ -36,13 +45,9 @@ export const DarkMode = () => {
                 toggleTheme();
               }}
             />
-            <DarkModeIcon 
-            className="moon"
-            onClick={() => {
-                setActive(false);
-                toggleTheme();
-              }}
-            />
+           
+    }
+            </button>
         </div>
     );
 };
