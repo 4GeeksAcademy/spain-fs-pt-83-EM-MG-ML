@@ -1,7 +1,6 @@
 import React from 'react'
 import CloseIcon from '@mui/icons-material/Close';
 import "../../styles/welcome.css"
-
 export const Modal = (props) => {
   if (!props.isOpen) return null; // No renderiza el modal si `isOpen` es falso
 
